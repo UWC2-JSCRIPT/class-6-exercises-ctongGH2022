@@ -1,19 +1,48 @@
 /**
- * Toggles "done" class on <li> element
+ * Cecilia Tong
+ * Class 5 Exercise & Homework
+ * Nov 22, 2022
+ * jQuery 'To Do List'
  */
 
-/**
- * Delete element when delete link clicked
- */
+$(document).ready(function () {
 
-/**
- * Adds new list item to <ul>
- */
-const addListItem = function(e) {
-  e.preventDefault();
-  const text = $('input').val();
+  // 1. Toggles "done" class on <li> element
+  $('li').click(function () {
+    $(this).toggleClass('done');
+  })
 
-  // rest here...
-};
+  // 2. Delete element when delete link clicked
+  $(".delete").click(function () {
+    //$(this).parent().remove();   //DELETE SELECTED ITEM
+    $(this).parent().fadeOut();    //EXTRA CREDIT
+  })
 
-// add listener for add
+  // 3. Adds new list item to <ul>
+  // add listener for add
+  $(".add").click(function () {
+    const text = $('input').val();
+
+    //only add to list if  text is not empty
+    if (text !== "") {
+
+      //create new item, then add to 'ul'
+      $liEl = $("<li>").append($("<span>").text(text), $("<a class=delete>").text("Delete"))
+      $('ul').append($liEl);
+
+      //clear input field
+      $('input').val('');  //js input.value = '';   
+
+      //if click to item on list, toggle to 'done'
+      $liEl.click(function () {
+        $(this).toggleClass('done');
+      })
+
+      //if click to Delete, delete the li element / remove from the DOM
+      $(".delete").click(function () {
+        //$(this).parent().remove();   //DELETE SELECTED ITEM
+        $(this).parent().fadeOut();    //EXTRA CREDIT
+      })
+    } //end if
+  }) //end $(".add-item").click(function () {}
+}); //end jquery
